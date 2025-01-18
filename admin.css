@@ -1,0 +1,30 @@
+:root {
+  --primary: #ffffff;
+  --color: #e5874e;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(#101010, #666666);
+  color: var(--primary);
+}
+
+h1 {
+  color: var(--color);
+}
+
+table .table-row {
+  background-color: var(--color);
+}
+
+table .action {
+  background-color: var(--color);
+  color: #ffffff;
+  padding: 0.5rem 0.9rem;
+  border-radius: 10px;
+}
+
+table .action:hover {
+  color: var(--color);
+  background-color: #ffffff;
+}

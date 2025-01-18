@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/logo2.png">
+    <title>THE DAYS COFFEE </title>
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Freeman&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- feather icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <!-- my style -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- alpine js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- app -->
+     <script src="src/app.js" async></script>
+    
+  </head>
+  <body>
+    <!-- nav start -->
+    <nav class="navbar" x-data>
+      <div class="nav-logo">
+        <a href="#">
+          <img src="img/logo2.png" />
+        </a>
+      </div>
+      <div class="navbar-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a class="produk" ="products.html">Products</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      
+      <div class="navbar-extra">
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
+        <a href="#" id="shopping-cart-button">
+          <i data-feather="shopping-cart"></i>
+          <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+        </a>
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+      </div>
+      
+      <!-- search form start -->
+      <div class="search-form">
+        <input type="search" id="search-box" placeholder="search here..." />
+        <!-- <label for="search-box"><i data-feather="search"></i></label> -->
+      </div>
+      <!-- search form end -->
+
+      <!-- shopping cart -->
+      <div class="shopping-cart">
+        <template x-for="(item, index) in $store.cart.items" x-keys="index">
+        <div class="cart-item">
+          <img :src="`img/MENU/${item.img}`" :alt="item.name">
+          <div class="item-detail">
+            <h3 x-text="item.name"></h3>
+            <div class="item-price">
+              <span x-text="rupiah(item.price)"></span> &times;
+              <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+              <span x-text="item.quantity"></span>
+              <button id="add" @click="$store.cart.add(item)">&plus;</button> &equals;
+              <span x-text="rupiah(item.total)"></span>
+            </div>
+          </div>
+        </div>
+      </template>
+      <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem;">Cart Is Empty</h4>
+      <h4 x-show="$store.cart.items.length">Total : <span x-text="rupiah($store.cart.total)"></span></h4>
+
+      <div class="form-container" x-show="$store.cart.items.length">
+        <form action="" id="checkoutForm">
+          <input type="hidden" name="items" x-model="JSON.stringify($store.cart.items)">
+          <input type="hidden" name="total" x-model="$store.cart.total">
+          <h5>Customer Details</h5>
+          <label for="name">
+            <span>Name</span>
+            <input type="text" name="name" id="name">
+          </label>
+
+          <label for="email">
+            <span>Email</span>
+            <input type="email" name="email" id="email">
+          </label>
+
+          <label for="phone">
+            <span>Phone</span>
+            <input type="number" name="phone" id="phone" autocomplete="off">
+          </label>
+
+          <label for="address">
+            <span>Adress</span>
+            <input type="text" name="address" id="address" autocomplete="off">
+          </label>
+
+          <button class="checkout-button disabled" type="submit" id="checkout-button" value="checkout">Checkout</button>
+        </form>
+      </div>
+      </div>
+      
+    </nav>
+   
+
+    <!-- nav end-->
+
+<section class="products" id="products" x-data="products">
+    <h2>explore the coffee menu <span>and make your choice</span></h2>
+    <div class="row">
+      <template x-for="(item, index) in items" x-key="index">
+        <div class="product-cards">
+          <div class="product-image">
+            <img :src="`img/MENU/${item.img}`" :alt="item.name">
+          </div>
+            <div class="product-content">
+                <h3 x-text="item.name"></h3>
+                <div class="product-stars">
+                  <svg
+  width="24"
+  height="24"
+  fill="currentColor"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <use href="img/feather-sprite.svg#star" />
+</svg>
+                  <svg
+  width="24"
+  height="24"
+  fill="currentColor"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <use href="img/feather-sprite.svg#star" />
+</svg>
+                  <svg
+  width="24"
+  height="24"
+  fill="currentColor"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <use href="img/feather-sprite.svg#star" />
+</svg>
+                  <svg
+  width="24"
+  height="24"
+  fill="CurrentColor"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <use href="img/feather-sprite.svg#star" />
+</svg>
+                  <svg
+  width="24"
+  height="24"
+  fill="currentColor"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <use href="img/feather-sprite.svg#star" />
+</svg>
+                </div>
+                <div class="product-price" x-text="rupiah(item.price)"></div>
+                <div class="product-icons">
+                  <a href="#" class="modal-open" data-modal="modal1">
+                    <svg
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    >
+                    <use href="img/feather-sprite.svg#eye" />
+                    </svg><span class="details">View</span></a>
+      
+                  <a href="#" @click.prevent="$store.cart.add(item)">
+                    <svg
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    >
+                    <use href="img/feather-sprite.svg#shopping-cart" />
+                    </svg><span>Buy</span></a>
+                </div>
+            </div>
+        </div>
+      </template>
+    </div>
+</section>
+
+
+    <!-- footer start -->
+    <footer>
+      <div class="socials">
+        <a
+          href="https://www.instagram.com/the_dayscoffee/?utm_source=ig_web_button_share_sheet"
+          ><i data-feather="instagram"></i
+        ></a>
+        <a href="mailto:thedayscoffee86@gmail.com"
+          ><i data-feather="mail"></i
+        ></a>
+        <a href=https://api.whatsapp.com/send?phone=08123456789&text=Halo%20The%20Days%20Coffee!%0ASaya%20ingin%20order%20coffee
+          ><i data-feather="phone"></i
+        ></a>
+      </div>
+
+      <div class="credit">
+        <p>
+          Created by KELOMPOK 4 | <a href=""> THE DAYS COFFEE</a>. | &copy; 2024
+        </p>
+      </div>
+    </footer>
+    <!-- footer end -->
+
+    <!-- modal box -->
+     <div class="modal" id="modal1">
+        <div class="modal-container">
+            <a href="#" class="close-icon"><i data-feather="x"></i></a>
+            <div class="modal-content">
+                <img src="img/MENU/brown sugar latte.jpg" alt="Product 1">
+                <div class="product-content">
+                    <h1>Product 1</h1>
+                    <p>Brown Sugar Latte (250ml)
+                      Coffee mixed with a measure of 1L divided into 4. The mixed ingredients used are Creamer, Boncafe Coffee (80% Arabica originating from Lampung and 20% Robusta originating from Brazil), Aren Sugar, Fresh Milk.
+                      </p>
+                    <div class="product-stars">
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star"  class="star"></i>
+                        <i data-feather="star"  class="star"></i>
+                        <i data-feather="star"  class="star"></i>
+                        <i data-feather="star"  class="star"></i>
+                    </div>
+                    <div class="product-price">IDR 17.000</div>
+                    <a href="cart.html"><i data-feather="shopping-cart"></i>Add To Cart</a>
+                </div>
+            </div>
+        </div>
+     </div>
+
+
+     <div class="modal" id="modal2">
+        <div class="modal-container">
+            <a href="#" class="close-icon"><i data-feather="x"></i></a>
+            <div class="modal-content">
+                <img src="img/MENU/coconut milk latte.jpg" alt="Product 2">
+                <div class="product-content">
+                    <h1>Product 2</h1>
+                    <p>Coconut Milk Latte (250ml) Coffee mixed with a measure of 1L divided into 4. The mixed ingredients used are Creamer, Boncafe Coffee (80% Arabica originating from Lampung and 20% Robusta originating from Brazil), Aren Sugar, Frisian Flag Coconut Milk.</p>
+                    <div class="product-stars">
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star"></i>
+                    </div>
+                    <div class="product-price">IDR 17.000</div>
+                    <a href="#"><i data-feather="shopping-cart"></i>Add To Cart</a>
+                </div>
+            </div>
+        </div>
+     </div>
+
+
+     <div class="modal" id="modal3">
+        <div class="modal-container">
+            <a href="#" class="close-icon"><i data-feather="x"></i></a>
+            <div class="modal-content">
+                <img src="img/MENU/brown sugar latte 1lt.jpg" alt="Product 3">
+                <div class="product-content">
+                    <h1>Product 3</h1>
+                    <p>Brown Sugar Latte (1L)
+                      Coffee that is mixed with a measure and poured with a size of 1L. The ingredients used are Creamer, Boncafe Coffee (80% Arabica from Lampung and 20% Robusta from Brazil), Aren Sugar, Fresh Milk
+                      .</p>
+                    <div class="product-stars">
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star" class="star"></i>
+                    </div>
+                    <div class="product-price">IDR 65.000</div>
+                    <a href="#"><i data-feather="shopping-cart"></i>Add To Cart</a>
+                </div>
+            </div>
+        </div>
+     </div>
+
+
+     <div class="modal" id="modal4">
+        <div class="modal-container">
+            <a href="#" class="close-icon"><i data-feather="x"></i></a>
+            <div class="modal-content">
+                <img src="img/MENU/coconut latte 1lt.jpg" alt="Product 4">
+                <div class="product-content">
+                    <h1>Product 4</h1>
+                    <p> Coconut Milk Latte (1L)
+                      Coffee mixed with a measure and poured with a size of 1L. The ingredients used are Creamer, Boncafe Coffee (80% Arabica from Lampung and 20% Robusta from Brazil), Aren Sugar, Frisian Flag Coconut Milk.</p>
+                    <div class="product-stars">
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star" class="star"></i>
+                        <i data-feather="star"></i>
+                    </div>
+                    <div class="product-price">IDR 65.000</div>
+                    <a href="#"><i data-feather="shopping-cart"></i>Add To Cart</a>
+                </div>
+            </div>
+        </div>
+     </div>
+
+    <script>
+      feather.replace();
+    </script>
+    <!-- js -->
+    <script src="script.js"></script>
+  </body>
+</html>
