@@ -1,11 +1,18 @@
+<<<<<<< HEAD
 // toggle active hamburger menu
 const navbarNav = document.querySelector(".navbar-nav");
+=======
+// toggle active hm
+const navbarNav = document.querySelector(".navbar-nav");
+// ketika diklik
+>>>>>>> 5a684686d3d731e4331565f958f9c0f9ef31ae8c
 document.querySelector("#hamburger-menu").onclick = (e) => {
   navbarNav.classList.toggle("active");
   hamburgerMenu.focus();
   e.preventDefault();
 };
 
+<<<<<<< HEAD
 const shoppingCart = document.querySelector(".shopping-cart");
 document.querySelector("#shopping-cart-button").onclick = (e) => {
   shoppingCart.classList.toggle("active");
@@ -13,6 +20,9 @@ document.querySelector("#shopping-cart-button").onclick = (e) => {
 };
 
 // // toggle active search box
+=======
+// toggle active sb
+>>>>>>> 5a684686d3d731e4331565f958f9c0f9ef31ae8c
 const searchForm = document.querySelector(".search-form");
 const searchBox = document.querySelector("#search-box");
 
@@ -25,7 +35,10 @@ document.querySelector("#search-button").onclick = (e) => {
 // klik diluar elemen
 const hm = document.querySelector("#hamburger-menu");
 const sb = document.querySelector("#search-button");
+<<<<<<< HEAD
 const sc = document.querySelector("#shopping-cart-button");
+=======
+>>>>>>> 5a684686d3d731e4331565f958f9c0f9ef31ae8c
 
 document.addEventListener("click", function (e) {
   if (!hm.contains(e.target) && !navbarNav.contains(e.target)) {
@@ -34,6 +47,7 @@ document.addEventListener("click", function (e) {
   if (!sb.contains(e.target) && !searchForm.contains(e.target)) {
     searchForm.classList.remove("active");
   }
+<<<<<<< HEAD
   if (!sc.contains(e.target) && !shoppingCart.contains(e.target)) {
     shoppingCart.classList.remove("active");
   }
@@ -67,3 +81,6 @@ window.onclick = function (e) {
     e.target.style.display = "none";
   }
 };
+=======
+});
+>>>>>>> 5a684686d3d731e4331565f958f9c0f9ef31ae8c
