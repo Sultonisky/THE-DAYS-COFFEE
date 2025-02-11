@@ -13,6 +13,8 @@
       href="https://fonts.googleapis.com/css2?family=Freeman&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,700;1,800&display=swap"
       rel="stylesheet"
     />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 
     <!-- feather icons -->
     <script src="https://unpkg.com/feather-icons"></script>
@@ -124,65 +126,15 @@
             <div class="product-content">
                 <h3 x-text="item.name"></h3>
                 <div class="product-stars">
-                  <svg
-  width="24"
-  height="24"
-  fill="currentColor"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <use href="img/feather-sprite.svg#star" />
-</svg>
-                  <svg
-  width="24"
-  height="24"
-  fill="currentColor"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <use href="img/feather-sprite.svg#star" />
-</svg>
-                  <svg
-  width="24"
-  height="24"
-  fill="currentColor"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <use href="img/feather-sprite.svg#star" />
-</svg>
-                  <svg
-  width="24"
-  height="24"
-  fill="CurrentColor"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <use href="img/feather-sprite.svg#star" />
-</svg>
-                  <svg
-  width="24"
-  height="24"
-  fill="currentColor"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <use href="img/feather-sprite.svg#star" />
-</svg>
+                  <i class='bx bxs-star'></i>
+                  <i class='bx bxs-star'></i>
+                  <i class='bx bxs-star'></i>
+                  <i class='bx bxs-star'></i>
+                  <i class='bx bxs-star'></i>
                 </div>
                 <div class="product-price" x-text="rupiah(item.price)"></div>
                 <div class="product-icons">
-                  <a href="#" class="modal-open" data-modal="modal1">
+                  <a href="cart.html" class="modal-open" data-modal="modal1">
                     <svg
                     width="24"
                     height="24"
@@ -250,11 +202,6 @@
                       Coffee mixed with a measure of 1L divided into 4. The mixed ingredients used are Creamer, Boncafe Coffee (80% Arabica originating from Lampung and 20% Robusta originating from Brazil), Aren Sugar, Fresh Milk.
                       </p>
                     <div class="product-stars">
-                        <i data-feather="star" class="star"></i>
-                        <i data-feather="star"  class="star"></i>
-                        <i data-feather="star"  class="star"></i>
-                        <i data-feather="star"  class="star"></i>
-                        <i data-feather="star"  class="star"></i>
                     </div>
                     <div class="product-price">IDR 17.000</div>
                     <a href="cart.html"><i data-feather="shopping-cart"></i>Add To Cart</a>
