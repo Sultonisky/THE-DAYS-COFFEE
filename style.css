@@ -475,7 +475,7 @@ body {
 }
 
 .bell path {
-  fill: #e5874e;
+  fill: hsl(23, 74%, 60%);
 }
 
 .button:hover {
