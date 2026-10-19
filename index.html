@@ -1,108 +1,254 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="img/logo2.png">
-    <title>THE DAYS COFFEE </title>
+    <link rel="icon" href="img/logo2.png" />
+    <title>THE DAYS COFFEE</title>
 
-    <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Freeman&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,700;1,800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Freeman&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
-
-    <!-- feather icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <script src="https://unpkg.com/feather-icons"></script>
-
-    <!-- my style -->
-    <link rel="stylesheet" href="main.css">
-
+    <link rel="stylesheet" href="style.css" />
+    <script src="src/app.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
   <body>
-    <!-- nav start -->
-    <nav class="navbar">
+    <nav class="navbar" x-data>
       <div class="nav-logo">
-          <img src="img/logo2.png" />
+        <a href="#home" aria-label="THE DAYS COFFEE">
+          <img src="img/logo2.png" alt="THE DAYS COFFEE" />
         </a>
       </div>
+
       <div class="navbar-nav">
-        <a class="home" href="#">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="products.html">Products</a>
-        <a href="contact.html">Contact Us</a>
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#products">Products</a>
+        <a href="#contact">Contact Us</a>
       </div>
 
       <div class="navbar-extra">
-        <a href="#" id="search-button"><i data-feather="search"></i></a>
-        <a href="cart-empty.html" id="shopping-cart"><i data-feather="shopping-cart"></i></a>
-        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+        <a href="#" id="shopping-cart-button" aria-label="Shopping cart">
+          <i data-feather="shopping-cart"></i>
+          <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+        </a>
+        <a href="#" id="hamburger-menu" aria-label="Open menu"><i data-feather="menu"></i></a>
       </div>
 
-      <!-- search form start -->
-      <div class="search-form">
-        <input type="search" id="search-box" placeholder="search here..." />
-        <!-- <label for="search-box"><i data-feather="search"></i></label> -->
+      <div class="shopping-cart">
+        <div class="cart-heading">
+          <div>
+            <span class="cart-kicker">Your selection</span>
+            <h2>Your order</h2>
+          </div>
+          <i data-feather="shopping-bag"></i>
+        </div>
+        <template x-for="item in $store.cart.items" :key="item.id">
+          <div class="cart-item">
+            <img :src="`img/MENU/${item.img}`" :alt="item.name" />
+            <div class="item-detail">
+              <h3 x-text="item.name"></h3>
+              <div class="item-price">
+                <span x-text="rupiah(item.price)"></span>
+                <span class="item-subtotal" x-text="rupiah(item.total)"></span>
+              </div>
+              <div class="quantity-control" aria-label="Quantity controls">
+                <button type="button" @click="$store.cart.remove(item.id)" aria-label="Decrease quantity">&minus;</button>
+                <span x-text="item.quantity"></span>
+                <button type="button" @click="$store.cart.add(item)" aria-label="Increase quantity">&plus;</button>
+              </div>
+            </div>
+          </div>
+        </template>
+        <div class="cart-empty" x-show="!$store.cart.items.length">
+          <i data-feather="shopping-cart"></i>
+          <h4>Your order is empty</h4>
+          <p>Add a coffee from the menu to get started.</p>
+        </div>
+        <div class="cart-summary" x-show="$store.cart.items.length">
+          <span>Total order</span>
+          <strong x-text="rupiah($store.cart.total)"></strong>
+        </div>
+
+        <div class="form-container" x-show="$store.cart.items.length">
+          <form id="checkoutForm">
+            <input type="hidden" name="items" :value="JSON.stringify($store.cart.items)" />
+            <input type="hidden" name="total" :value="$store.cart.total" />
+            <div class="checkout-heading">
+              <h5>Delivery details</h5>
+              <p>Complete your details before continuing to WhatsApp.</p>
+            </div>
+            <label for="name"><span>Name</span><input type="text" name="name" id="name" required /></label>
+            <label for="email"><span>Email</span><input type="email" name="email" id="email" required /></label>
+            <label for="phone"><span>Phone</span><input type="tel" name="phone" id="phone" required /></label>
+            <label for="address"><span>Address</span><input type="text" name="address" id="address" required /></label>
+            <button class="checkout-button disabled" type="submit">
+              Continue to WhatsApp <i data-feather="arrow-up-right"></i>
+            </button>
+          </form>
+        </div>
       </div>
-      <!-- search form end -->
+      <div class="cart-backdrop" aria-hidden="true"></div>
     </nav>
-    <!-- nav end-->
 
-    <!-- hero section start -->
+    <main>
+      <section class="hero" id="home">
+        <div class="content" data-reveal="hero">
+          <h1>Love, Peace, And-Joy Your<span> THE DAYS COFFEE</span></h1>
+          <p>
+            Dengan layanan ramah dan kualitas kopi yang tak tertandingi, THE DAYS COFFEE
+            menjadi destinasi untuk menikmati minuman dan kenangan yang abadi.
+          </p>
+          <div class="hero-actions">
+            <a href="#products" class="cta">Order Now</a>
+          </div>
+        </div>
+      </section>
 
-    <header class="hero">
-      <div class="content">
-        <h1>Love, Peace, And-Joy Your<span> THE DAYS COFFEE</span></h1>
-        <p>
-          Dengan layanan ramah dan kualitas kopi yang tak tertandingi, "THE DAYS
-          COFFEE " tidak hanya menjadi tempat untuk menikmati minuman kopi yang
-          luar biasa, tetapi juga menjadi destinasi yang membawa kenangan yang
-          abadi bagi para pengunjungnya.
-        </p>
-        <a
-          href="products.html"
-          class="cta"
-          >Order Now</a
-        >
-        <a href="learn_more.html" id="home" class="cta">Learn More</a>
-      </div>
-      <div class="image">
-          <img src="img/logo1.png" alt="" />
-      </div>
-    </header>
+      <section class="about" id="about">
+        <div class="about-heading" data-reveal>
+          <span class="section-kicker">Our story</span>
+          <h2>Good coffee, <span>delivered to you</span></h2>
+          <p>
+            Kopi berkualitas yang diproses dengan perhatian dan siap dipesan secara online
+            untuk menemani aktivitasmu.
+          </p>
+        </div>
+        <div class="about-row" data-reveal>
+          <div class="about-img">
+            <div class="about-beans" aria-hidden="true">
+              <span class="about-logo-frame"></span>
+              <span class="about-logo-frame"></span>
+              <span class="about-logo-frame"></span>
+            </div>
+          </div>
+          <div class="content">
+            <span class="content-kicker">Tentang THE DAYS COFFEE</span>
+            <h3>Kopi favoritmu, dibuat dengan standar yang kami jaga.</h3>
+            <p>
+              THE DAYS COFFEE menyediakan minuman kopi yang dapat dipesan secara online
+              dengan proses yang praktis. Kami menjaga kualitas rasa, kemasan, dan pelayanan
+              agar setiap pesanan sampai sebagai pengalaman yang menyenangkan.
+            </p>
+            <p>
+              Untuk karakter kopi yang seimbang, kami menggunakan perpaduan Robusta 80% dari
+              Lampung dan Arabica 20% dari Brazil. Setiap produk disiapkan dengan perhatian
+              agar rasanya konsisten, nikmat, dan mudah dipesan kapan pun dibutuhkan.
+            </p>
+            <div class="about-highlights">
+              <div class="about-highlight">
+                <i data-feather="coffee"></i>
+                <div><strong>Rasa terjaga</strong><span>Dipilih dan diseduh dengan teliti.</span></div>
+              </div>
+              <div class="about-highlight">
+                <i data-feather="heart"></i>
+                <div><strong>Dibuat dengan perhatian</strong><span>Produk disiapkan dengan standar yang kami jaga.</span></div>
+              </div>
+              <div class="about-highlight">
+                <i data-feather="shopping-bag"></i>
+                <div><strong>Order online</strong><span>Pesan kopi favorit dengan praktis melalui WhatsApp.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <!-- hero section end -->
+      <section class="products" id="products" x-data="products">
+        <div class="products-heading" data-reveal>
+          <span class="section-kicker">Our menu</span>
+          <h2>Choose your <span>favorite blend</span></h2>
+          <p>
+            Pilih varian kopi favoritmu, tentukan ukuran yang sesuai, lalu pesan dengan mudah
+            melalui WhatsApp.
+          </p>
+        </div>
+        <div class="row" data-reveal>
+          <template x-for="item in items" :key="item.id">
+            <div class="product-cards">
+              <div class="product-image">
+                <img :src="`img/MENU/${item.img}`" :alt="item.name" />
+              </div>
+              <div class="product-content">
+                <h3 x-text="item.name"></h3>
+                <p class="product-description" x-text="item.description"></p>
+                <div class="product-price" x-text="rupiah(item.price)"></div>
+                <div class="product-icons">
+                  <a href="#" @click.prevent="$store.cart.add(item)">
+                    <i data-feather="shopping-cart"></i><span>Add to order</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </section>
 
+      <section class="contact" id="contact">
+        <div class="contact-heading" data-reveal>
+          <span class="section-kicker">Need assistance?</span>
+          <h2>Let's <span>connect</span></h2>
+          <p>
+            Hubungi kami untuk pertanyaan pesanan, laporan kendala, feedback, maupun proposal
+            kerja sama. Tim THE DAYS COFFEE siap mendengarkan dan membantu.
+          </p>
+        </div>
+        <div class="row" data-reveal>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15865.01610843319!2d106.73868267865629!3d-6.230203900125773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f0c7d941b667%3A0xa23db89607c3cb9f!2sPetukangan%20Utara%2C%20Kec.%20Pesanggrahan%2C%20Kota%20Jakarta%20Selatan%2C%20Daerah%20Khusus%20Ibukota%20Jakarta!5e0!3m2!1sid!2sid!4v1715300440580!5m2!1sid!2sid"
+            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map"
+            title="Lokasi THE DAYS COFFEE"
+          ></iframe>
+          <form action="#" method="post" class="contact-form" id="contactForm">
+            <div class="contact-form-heading">
+              <h3>Tell us what you need</h3>
+              <p>
+                Sampaikan detail pesan, laporan masalah, atau ide kerja sama. Untuk respons
+                lebih cepat, kamu juga bisa menghubungi kami melalui WhatsApp.
+              </p>
+              <a class="contact-whatsapp" href="https://wa.me/6285756953895?text=Halo%20The%20Days%20Coffee%21">
+                <i data-feather="message-circle"></i> Chat on WhatsApp
+              </a>
+            </div>
+            <label class="input-group">
+              <i data-feather="user"></i>
+              <span class="sr-only">Name</span>
+              <input type="text" name="username" placeholder="Name" required />
+            </label>
+            <label class="input-group">
+              <i data-feather="mail"></i>
+              <span class="sr-only">Email</span>
+              <input type="email" name="email" placeholder="Email" required />
+            </label>
+            <label class="input-group-textarea">
+              <i data-feather="message-square"></i>
+              <span class="sr-only">Message</span>
+              <textarea name="message" placeholder="How can we help?" required></textarea>
+            </label>
+            <button type="submit" class="btn">Send Message <i data-feather="arrow-up-right"></i></button>
+          </form>
+        </div>
+      </section>
+    </main>
 
-    <!-- footer start -->
-    <footer>
+    <footer data-reveal>
       <div class="socials">
-        <a
-          href="https://www.instagram.com/the_dayscoffee/?utm_source=ig_web_button_share_sheet"
-          ><i data-feather="instagram"></i
-        ></a>
-        <a href="mailto:thedayscoffee86@gmail.com"
-          ><i data-feather="mail"></i
-        ></a>
-        <a href=https://api.whatsapp.com/send?phone=08123456789&text=Halo%20The%20Days%20Coffee!%0ASaya%20ingin%20order%20coffee
-          ><i data-feather="phone"></i
-        ></a>
+        <a href="https://www.instagram.com/the_dayscoffee/" aria-label="Instagram"><i data-feather="instagram"></i></a>
+        <a href="mailto:thedayscoffee86@gmail.com" aria-label="Email"><i data-feather="mail"></i></a>
+        <a href="https://wa.me/6285756953895?text=Halo%20The%20Days%20Coffee%21" aria-label="WhatsApp"><i data-feather="phone"></i></a>
       </div>
-
       <div class="credit">
-        <p>
-          Created by KELOMPOK 4 | <a href=""> THE DAYS COFFEE</a>. | &copy; 2024
-        </p>
+        <p>&copy; <span id="current-year"></span> THE DAYS COFFEE</p>
+        <p>Built by <a href="https://www.instagram.com/ctrlbuild_" target="_blank" rel="noopener noreferrer">CTRL Build</a></p>
       </div>
     </footer>
-    <!-- footer end -->
 
-    <script>
-      feather.replace();
-    </script>
-    <!-- js -->
+    <script>feather.replace();</script>
     <script src="script.js"></script>
   </body>
 </html>
