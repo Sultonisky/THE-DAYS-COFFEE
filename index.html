@@ -22,7 +22,7 @@
     <nav class="navbar" x-data>
       <div class="nav-logo">
         <a href="#home" aria-label="THE DAYS COFFEE">
-          <img src="img/logo2.png" alt="THE DAYS COFFEE" />
+          <img src="img/logo2.png" alt="THE DAYS COFFEE" loading="lazy" />
         </a>
       </div>
 
@@ -51,7 +51,7 @@
         </div>
         <template x-for="item in $store.cart.items" :key="item.id">
           <div class="cart-item">
-            <img :src="`img/MENU/${item.img}`" :alt="item.name" />
+            <img :src="`img/MENU/${item.img}`" :alt="item.name" loading="lazy" />
             <div class="item-detail">
               <h3 x-text="item.name"></h3>
               <div class="item-price">
@@ -122,6 +122,7 @@
         </div>
         <div class="about-row" data-reveal>
           <div class="about-img">
+            <img src="img/about.jpg" alt="About THE DAYS COFFEE" loading="lazy" />
             <div class="about-beans" aria-hidden="true">
               <span class="about-logo-frame"></span>
               <span class="about-logo-frame"></span>
@@ -172,7 +173,7 @@
           <template x-for="item in items" :key="item.id">
             <div class="product-cards">
               <div class="product-image">
-                <img :src="`img/MENU/${item.img}`" :alt="item.name" />
+                <img :src="`img/MENU/${item.img}`" :alt="item.name" loading="lazy" />
               </div>
               <div class="product-content">
                 <h3 x-text="item.name"></h3>
