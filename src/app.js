@@ -6,24 +6,28 @@ document.addEventListener("alpine:init", () => {
         name: "Brown Sugar Latte",
         img: "brown sugar latte.jpg",
         price: 17000,
+        description: "Latte creamy dengan manis brown sugar yang lembut.",
       },
       {
         id: 2,
         name: "Brown Sugar Latte 1lt",
         img: "brown sugar latte 1lt.jpg",
         price: 65000,
+        description: "Brown Sugar Latte dalam ukuran 1 liter untuk stok di rumah.",
       },
       {
         id: 3,
         name: "Coconut Milk Latte",
         img: "coconut milk latte.jpg",
         price: 17000,
+        description: "Perpaduan kopi susu dan rasa kelapa yang ringan dan nikmat.",
       },
       {
         id: 4,
         name: "Coconut Milk Latte 1lt",
         img: "coconut latte 1lt.jpg",
         price: 65000,
+        description: "Coconut Milk Latte ukuran 1 liter untuk dinikmati lebih lama.",
       },
     ],
   }));
@@ -96,35 +100,6 @@ const rupiah = (number) => {
   }).format(number);
 };
 
-// form validation
-const checkoutButton = document.querySelector(".checkout-button");
-checkoutButton.disabled = true;
-
-const form = document.querySelector("#checkoutForm");
-
-form.addEventListener("keyup", function () {
-  for (let i = 0; i < form.elements.length; i++) {
-    if (form.elements[i].value.length !== 0) {
-      checkoutButton.classList.remove("disabled");
-      checkoutButton.classList.add("disabled");
-    } else {
-      return false;
-    }
-  }
-  checkoutButton.disabled = false;
-  checkoutButton.classList.remove("disabled");
-});
-
-// kirim data checkout customer
-checkoutButton.addEventListener("click", function (e) {
-  e.preventDefault();
-  const formData = new FormData(form);
-  const data = new URLSearchParams(formData);
-  const objData = Object.fromEntries(data);
-  const message = formatMessage(objData);
-  window.open("http://wa.me/6285756953895?text=" + encodeURIComponent(message));
-});
-
 const formatMessage = (obj) => {
   return `Data Customer
   Nama: ${obj.name}
@@ -133,10 +108,35 @@ const formatMessage = (obj) => {
   Address: ${obj.address}
   
   Data Pesanan
-  ${JSON.parse(obj.items).map(
-    (item) => `${item.name} (${item.quantity} x ${rupiah(item.total)}) \n`
-  )}
+  ${JSON.parse(obj.items)
+    .map((item) => `${item.name} (${item.quantity} x ${rupiah(item.total)})`)
+    .join("\n")}
   
   TOTAL: ${rupiah(obj.total)}
   TERIMAKASIH.`;
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+  const checkoutButton = document.querySelector(".checkout-button");
+  const form = document.querySelector("#checkoutForm");
+
+  if (!checkoutButton || !form) {
+    return;
+  }
+
+  checkoutButton.disabled = true;
+
+  form.addEventListener("input", () => {
+    const isValid = form.checkValidity();
+    checkoutButton.disabled = !isValid;
+    checkoutButton.classList.toggle("disabled", !isValid);
+  });
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    const objData = Object.fromEntries(new URLSearchParams(formData));
+    const message = formatMessage(objData);
+    window.open("https://wa.me/6285756953895?text=" + encodeURIComponent(message), "_blank");
+  });
+});
